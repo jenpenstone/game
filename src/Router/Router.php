@@ -70,6 +70,7 @@ class Router
             return;
         } else if ($method === "POST" && $path === "/form/process") {
             $_SESSION["dice"] = $_POST["dice"] ?? null;
+            $_SESSION["submit"] = $_POST["submit"] ?? null;
             redirectTo(url("/dicegame"));
             return;
         }
