@@ -24,7 +24,7 @@ class DiceHand
         $this->sum = 0;
         
         for($i = 0; $i < $nbrDice; $i++) {
-            $this->dice[$i] = new Dice();
+            $this->dice[$i] = new GraphicalDice();
         }
     }
 
@@ -48,11 +48,11 @@ class DiceHand
      */
     public function getValues(): array
     {
-        $res = array();
+        $values = array();
         for ($i = 0; $i < count($this->dice); $i++) {
-            $res[$i] = $this->dice[$i]->getValue();
+            $values[$i] = $this->dice[$i]->getValue();
         }
-        return $res;
+        return $values;
     }
 
     /**
@@ -63,6 +63,20 @@ class DiceHand
     public function getSum(): int
     {
         return $this->sum;
+    }
+
+    /**
+     * Get the value of the last roll of the dice.
+     *
+     * @return array as the value of the die.
+     */
+    public function getImages(): array
+    {
+        $images = array();
+        for ($i = 0; $i < count($this->dice); $i++) {
+            $images[$i] = $this->dice[$i]->getImage();
+        }
+        return $images;
     }
 
 }

@@ -68,6 +68,10 @@ class Router
             $callable->playGame();
 
             return;
+        } else if ($method === "POST" && $path === "/form/process") {
+            $_SESSION["dice"] = $_POST["dice"] ?? null;
+            redirectTo(url("/dicegame"));
+            return;
         }
 
         $data = [

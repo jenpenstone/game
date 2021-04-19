@@ -22,22 +22,31 @@ class Game21
      */
     public function playGame(): void
     {
+
         $data = [
             "header" => "Game 21",
             "message" => "Play game 21!",
+            "action" => url("/form/process"),
+            "dice" => $_SESSION["dice"] ?? null,
         ];
 
-        $hand = new DiceHand(2);
+        $nbrDice = intval($data["dice"]);
+        $hand = new DiceHand($nbrDice);
         $hand->roll();
-        $values = $hand->getValues();
+        $dice = $hand->getValues();
+        $images = $hand->getImages();
         $res = "";
-        for ($i = 0; $i < count($values); $i++) {
-            $res .= $values[$i] . ", ";
+        for ($i = 0; $i < count($dice); $i++) {
+            $res .= "<div class='dice ";
+            $res .= $images[$i];
+            $res .= "'></div>";
         }
         $data["lastHandRoll"] = $res;
 
         $body = renderView("layout/dicegame.php", $data);
         sendResponse($body);
     }
+
+    
 
 }

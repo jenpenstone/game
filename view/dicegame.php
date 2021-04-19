@@ -8,7 +8,8 @@ declare(strict_types=1);
 
 $header = $header ?? null;
 $message = $message ?? null;
-
+$action = $action ?? null;
+$output = $output ?? null;
 
 
 ?>
@@ -17,10 +18,16 @@ $message = $message ?? null;
 
 <p><?= $message ?></p>
 
-<form action="">
+<form method="post" action="<?= $action ?>">
     <label for="dice">Antal tärningar:</label>
-    <input type="number" value="1" min="1" max="2" id="dice">
-    <input type=submit>
+    <input type="number" name="dice" value="1" min="1" max="2">
+    <input type=submit value="Starta spelet">
+
+    <?php if ($output !== null) : ?>
+        <p>
+            <output>You have sent the value of:<br>'<?= htmlentities($output) ?>'</output>
+        </p>
+    <?php endif; ?>
 </form>
 
 <p>DiceHand</p>
