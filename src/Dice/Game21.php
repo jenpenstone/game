@@ -26,14 +26,6 @@ class Game21
             "header" => "Game 21",
             "message" => "Play game 21!",
         ];
-        
-        $die = new Dice();
-        $die->roll();
-        $data["lastRoll"] = $die->getValue();
-
-        $die2 = new GraphicalDice();
-        $die2->roll();
-        $data["lastGraphRoll"] = $die2->getImage();
 
         $hand = new DiceHand(2);
         $hand->roll();
