@@ -15,3 +15,35 @@ footer {
     min-height: 4em;
     text-align: center;
 }
+
+.dice {
+    width: 50px;
+    height: 50px;
+    margin: 1em;
+    background-position: center;
+    background-size: cover;
+}
+
+.dice-1 {
+    background-image: url("../../src/Dice/img/1.png");
+}
+
+.dice-2 {
+    background-image: url("../../src/Dice/img/2.png");
+}
+
+.dice-3 {
+    background-image: url("../../src/Dice/img/3.png");
+}
+
+.dice-4 {
+    background-image: url("../../src/Dice/img/4.png");
+}
+
+.dice-5 {
+    background-image: url("../../src/Dice/img/5.png");
+}
+
+.dice-6 {
+    background-image: url("../../src/Dice/img/6.png");
+}
