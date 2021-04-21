@@ -57,16 +57,8 @@ class Router
             sendResponse($body);
             return;
         } else if ($method === "GET" && $path === "/dicegame") {
-            //$data = [
-            //    "header" => "Dice page",
-            //    "message" => "Play this awsome game!",
-            //];
-            //$body = renderView("layout/dicegame.php", $data);
-            //sendResponse($body);
-
             $callable = new \Jess19\Dice\Game21();
             $callable->playGame();
-
             return;
         } else if ($method === "POST" && $path === "/form/process") {
             $_SESSION["dice"] = $_POST["dice"] ?? null;
