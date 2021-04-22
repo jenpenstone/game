@@ -61,8 +61,15 @@ class Router
             $callable->playGame();
             return;
         } else if ($method === "POST" && $path === "/form/process") {
-            $_SESSION["dice"] = $_POST["dice"] ?? null;
-            $_SESSION["submit"] = $_POST["submit"] ?? null;
+            $_SESSION["nbrDice"] = $_POST["nbrDice"] ?? null;
+            $_SESSION["doStartGame"] = $_POST["doStartGame"] ?? null;
+            $_SESSION["doContinue"] = $_POST["doContinue"] ?? null;
+            $_SESSION["doStopGame"] = $_POST["doStopGame"] ?? null;
+
+            redirectTo(url("/dicegame"));
+            return;
+        } else if ($method === "POST" && $path === "/form/endGame") {
+            destroySession();
             redirectTo(url("/dicegame"));
             return;
         }
