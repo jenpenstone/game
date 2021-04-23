@@ -8,17 +8,22 @@ declare(strict_types=1);
 
 $header = $header ?? null;
 $message = $message ?? null;
+
 $action = $action ?? null;
 $endGame = $endGame ?? null;
-$nbrDice = $nbrDice ?? null;
-$lastHandRoll = $lastHandRoll ?? [];
-$playerRolls = $playerRolls ?? null;
-$playerSum = $_SESSION["computerSum"] ?? null;
-$scorePlayer = $scorePlayer ?? null;
-$computerRolls = $computerRolls ?? null;
-$computerSum = $_SESSION["computerSum"] ?? null;
-$scoreComputer = $scoreComputer ?? null;
 
+$nbrDice = $nbrDice ?? null;
+
+$lastHandRoll = $lastHandRoll ?? [];
+
+$playerSum = $_SESSION["playerSum"] ?? null;
+$computerSum = $_SESSION["computerSum"] ?? null;
+$scorePlayer = $_SESSION["scorePlayer"] ?? null;
+$scoreComputer = $_SESSION["scoreComputer"] ?? null;
+
+$result = $result ?? null;
+
+var_dump($_SESSION);
 ?>
 
 <h1><?= $header ?></h1>
@@ -27,7 +32,9 @@ $scoreComputer = $scoreComputer ?? null;
 
 <form method="post" action="<?= $endGame ?>">
     <p> Ställning:</p>
+    <label for="scorePlayer">Spelaren:</label>
     <input type="number" name="scorePlayer" value="<?= $scorePlayer ?>" readonly>
+    <label for="scoreComputer">Datorn:</label>
     <input type="number" name="scoreComputer" value="<?= $scoreComputer ?>" readonly>
     <input type=submit name="doEndGame" value="Nollställ" id="btnEndGame">
 </form>
@@ -54,4 +61,9 @@ $scoreComputer = $scoreComputer ?? null;
 <div>
     <h3>Datorn:</h3>
     <p>Summa: <?= $computerSum ?></p>
+</div>
+
+<div>
+    <h3>Resultat</h3>
+    <p><?= $result ?></p>
 </div>
