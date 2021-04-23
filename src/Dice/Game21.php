@@ -44,6 +44,13 @@ class Game21
             $_SESSION["playerSum"] = 0;
             $_SESSION["computerSum"] = 0;
 
+            if(!isset($_SESSION["scorePlayer"])){
+                $_SESSION["scorePlayer"] = 0;
+            }
+            if (!isset($_SESSION["scoreComputer"])) {
+                $_SESSION["scoreComputer"] = 0;
+            }
+
             //Create new dice hand.
             $_SESSION["hand"] = new DiceHand($nbrDice);
             $_SESSION["compHand"] = new DiceHand($nbrDice);
@@ -63,6 +70,8 @@ class Game21
         //If player get more than 21 game is over.
         if ($_SESSION["playerSum"] > 21) {
             $data["result"] = "Spelet slut!";
+            $_SESSION["scoreComputer"] += 1;
+            //End round
 
          //If player get 21
         } else if ($_SESSION["playerSum"] == 21) {
@@ -72,7 +81,12 @@ class Game21
         //If stop button is pressed
         if ($doStopGame || $_SESSION["playerSum"] >= 21) {
             //Computer plays
-
+            $cHand = $_SESSION["compHand"];
+            while ($_SESSION["computerSum"] < 21) {
+                $cHand->roll();
+                $_SESSION["computerSum"] += $cHand->getSum();
+                echo $_SESSION["computerSum"] . ", ";
+            }
 
             
         }
@@ -85,5 +99,22 @@ class Game21
 
         $body = renderView("layout/dicegame.php", $data);
         sendResponse($body);
+    }
+
+    /**
+     * Roll the dice for the player.
+     */
+    private function playerRolls(): void {
+        $_SESSION["hand"]->roll();
+        $data["lastHandRoll"] = $_SESSION["hand"]->getImages();
+        $_SESSION["playerSum"] += $_SESSION["hand"]->getSum();
+    }
+
+    /**
+     * Roll the dice for the player.
+     */
+    private function endRound(): void
+    {
+
     }
 }
