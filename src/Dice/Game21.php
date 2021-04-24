@@ -39,10 +39,6 @@ class Game21
      */
     public function initGame(): void
     {
-        echo "Init game";
-        //Unset session
-        destroySession();
-
         //Render view
         $this->showView();
     }
@@ -52,7 +48,6 @@ class Game21
      */
     public function newGame($nbrDice): void
     {
-        echo "New game";
         //Nbr of dice to use.
         $dice = intval($nbrDice);
 
@@ -90,7 +85,6 @@ class Game21
         } else if ($_SESSION["playerSum"] == 21) {
             $this->data["result"] = "Grattis, Du fick 21!";
         }
-
         //Render view
         $this->showView();
     }
@@ -100,8 +94,6 @@ class Game21
      */
     public function playerStopped(): void
     {
-        echo "Player stopped";
-
         //Computer plays
         $this->computerPlays();
 
@@ -117,8 +109,6 @@ class Game21
      */
     public function newRound(): void
     {
-        echo "New round";
-
         // init the score variables.
         $this->startRound();
 
@@ -134,8 +124,6 @@ class Game21
      */
     public function startRound(): void
     {
-        echo "Start round";
-
         // init the score variables.
         $_SESSION["playerSum"] = 0;
         $_SESSION["computerSum"] = 0;
@@ -146,10 +134,7 @@ class Game21
      */
     public function playerRolls(): void
     {
-        echo "player rolls";
-
         $_SESSION["hand"]->roll();
-        $this->data["lastHandRoll"] = $_SESSION["hand"]->getImages();
         $_SESSION["playerSum"] += $_SESSION["hand"]->getSum();
     }
 
@@ -158,8 +143,6 @@ class Game21
      */
     public function computerPlays(): void
     {
-        echo "Computer plays";
-
         $cHand = $_SESSION["compHand"];
         while ($_SESSION["computerSum"] < 21) {
             $cHand->roll();
@@ -173,17 +156,19 @@ class Game21
      */
     public function checkWinner(): void
     {
-        echo "Check winner";
-
         if ($_SESSION["computerSum"] == 21) {
             $this->data["result"] = "Tyvärr! Du förlorade!";
+            $_SESSION["scoreComputer"] += 1;
         } else if ($_SESSION["computerSum"] > 21) {
             $this->data["result"] = "Grattis! Du vann!";
+            $_SESSION["scorePlayer"] += 1;
         } else {
             if ($_SESSION["computerSum"] < $_SESSION["playerSum"]) {
                 $this->data["result"] = "Grattis! Du vann!";
+                $_SESSION["scorePlayer"] += 1;
             } else {
                 $this->data["result"] = "Tyvärr! Du förlorade!";
+                $_SESSION["scoreComputer"] += 1;
             }
         }
     }

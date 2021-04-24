@@ -14,7 +14,10 @@ $endGame = $endGame ?? null;
 
 $nbrDice = $nbrDice ?? null;
 
-$lastHandRoll = $lastHandRoll ?? [];
+$diceImages = [];
+if (isset($_SESSION["hand"])) {
+    $diceImages = $_SESSION["hand"]->getImages() ?? [];
+}
 
 $playerSum = $_SESSION["playerSum"] ?? null;
 $computerSum = $_SESSION["computerSum"] ?? null;
@@ -53,8 +56,8 @@ var_dump($_SESSION);
 <div>
     <h3>Spelaren:</h3>
     <div>
-        <?php for ($i = 0; $i < count($lastHandRoll); $i++) : ?>
-            <div class='dice <?= $lastHandRoll[$i] ?>'></div>
+        <?php for ($i = 0; $i < count($diceImages); $i++) : ?>
+            <div class='dice <?= $diceImages[$i] ?>'></div>
         <?php endfor; ?>
     </div>
     <p>Summa: <?= $playerSum ?></p>

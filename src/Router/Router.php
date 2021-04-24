@@ -58,13 +58,13 @@ class Router
             return;
         } else if ($method === "GET" && $path === "/dicegame") {
             $callable = new \Jess19\Dice\Game21();
-            var_dump($callable);
             $callable->initGame();
             return;
         } else if ($method === "POST" && $path === "/dicegame/process") {
             echo "Testing";
             $callable = new \Jess19\Dice\Game21();
             if (isset($_POST["doStartGame"])) {
+                echo "Start game in router";
                 $callable->newGame($_POST["nbrDice"]);
             } else if (isset($_POST["doContinue"])) {
                 $callable->continueRoll();
