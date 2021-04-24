@@ -85,8 +85,6 @@ class Game21
         } else if ($_SESSION["playerSum"] == 21) {
             $this->data["result"] = "Grattis, Du fick 21!";
         }
-        //Render view
-        $this->showView();
     }
 
     /**
@@ -99,9 +97,6 @@ class Game21
 
         //Check who won the round
         $this->checkWinner();
-
-        //Render view
-        $this->showView();
     }
 
     /**
@@ -114,9 +109,6 @@ class Game21
 
         //Player rolls the dice
         $this->playerRolls();
-
-        //Render view
-        $this->showView();
     }
 
     /**
@@ -147,7 +139,6 @@ class Game21
         while ($_SESSION["computerSum"] < 21) {
             $cHand->roll();
             $_SESSION["computerSum"] += $cHand->getSum();
-            echo $_SESSION["computerSum"] . ", ";
         }
     }
 
@@ -179,8 +170,6 @@ class Game21
      */
     public function showView(): void
     {
-        echo "Render view";
-
         $body = renderView("layout/dicegame.php", $this->data);
         sendResponse($body);
     }
