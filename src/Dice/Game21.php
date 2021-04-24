@@ -31,6 +31,7 @@ class Game21
             "message" => "Spela 21!",
             "action" => url("/dicegame/process"),
             "endGame" => url("/dicegame/end"),
+            "result" => "",
         ];
     }
 
@@ -79,11 +80,11 @@ class Game21
         $this->playerRolls();
 
         if ($_SESSION["playerSum"] > 21) {
-            $this->data["result"] = "Tyvärr! Du förlorade!";
+            $_SESSION["result"] = "Tyvärr! Du förlorade!";
             $_SESSION["scoreComputer"] += 1;
             //End round
         } else if ($_SESSION["playerSum"] == 21) {
-            $this->data["result"] = "Grattis, Du fick 21!";
+            $_SESSION["result"] = "Grattis, Du fick 21!";
         }
     }
 
@@ -119,6 +120,7 @@ class Game21
         // init the score variables.
         $_SESSION["playerSum"] = 0;
         $_SESSION["computerSum"] = 0;
+        $_SESSION["result"] = "";
     }
 
     /**
@@ -148,17 +150,17 @@ class Game21
     public function checkWinner(): void
     {
         if ($_SESSION["computerSum"] == 21) {
-            $this->data["result"] = "Tyvärr! Du förlorade!";
+            $_SESSION["result"] = "Tyvärr! Du förlorade!";
             $_SESSION["scoreComputer"] += 1;
         } else if ($_SESSION["computerSum"] > 21) {
-            $this->data["result"] = "Grattis! Du vann!";
+            $_SESSION["result"] = "Grattis! Du vann!";
             $_SESSION["scorePlayer"] += 1;
         } else {
             if ($_SESSION["computerSum"] < $_SESSION["playerSum"]) {
-                $this->data["result"] = "Grattis! Du vann!";
+                $_SESSION["result"] = "Grattis! Du vann!";
                 $_SESSION["scorePlayer"] += 1;
             } else {
-                $this->data["result"] = "Tyvärr! Du förlorade!";
+                $_SESSION["result"] = "Tyvärr! Du förlorade!";
                 $_SESSION["scoreComputer"] += 1;
             }
         }

@@ -47,3 +47,8 @@ footer {
 .dice-6 {
     background-image: url("../../src/Dice/img/6.png");
 }
+
+
+.hide {
+    visibility: hidden;
+}

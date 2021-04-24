@@ -24,9 +24,7 @@ $computerSum = $_SESSION["computerSum"] ?? null;
 $scorePlayer = $_SESSION["scorePlayer"] ?? null;
 $scoreComputer = $_SESSION["scoreComputer"] ?? null;
 
-$result = $result ?? null;
-
-var_dump($_SESSION);
+$result = $_SESSION["result"] ?? null;
 ?>
 
 <h1><?= $header ?></h1>
