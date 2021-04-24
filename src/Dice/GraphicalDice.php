@@ -32,5 +32,4 @@ class GraphicalDice extends Dice
     {
         return "dice-" . $this->getValue();
     }
-
 }

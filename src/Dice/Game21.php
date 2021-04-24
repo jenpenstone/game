@@ -90,12 +90,12 @@ class Game21
         //Roll
         $this->playerRolls();
 
+        //Check if player has reached 21 and round is finished.
         if ($_SESSION["playerSum"] > 21) {
             $_SESSION["result"] = "Tyvärr! Du förlorade!";
             $_SESSION["scoreComputer"] += 1;
 
             $_SESSION["state"] = 3;
-
         } else if ($_SESSION["playerSum"] == 21) {
             $_SESSION["result"] = "Grattis, Du fick 21!";
 
@@ -132,7 +132,7 @@ class Game21
     /**
      * Start round.
      */
-    public function startRound(): void
+    private function startRound(): void
     {
         // init the score variables.
         $_SESSION["playerSum"] = 0;
@@ -144,7 +144,7 @@ class Game21
     /**
      * Roll the dice for player.
      */
-    public function playerRolls(): void
+    private function playerRolls(): void
     {
         $_SESSION["hand"]->roll();
         $_SESSION["playerSum"] += $_SESSION["hand"]->getSum();
@@ -153,7 +153,7 @@ class Game21
     /**
      * Computer plays.
      */
-    public function computerPlays(): void
+    private function computerPlays(): void
     {
         $cHand = $_SESSION["compHand"];
         while ($_SESSION["computerSum"] < 21) {
@@ -165,7 +165,7 @@ class Game21
     /**
      * Check who won the round.
      */
-    public function checkWinner(): void
+    private function checkWinner(): void
     {
         if ($_SESSION["computerSum"] == 21) {
             $_SESSION["result"] = "Tyvärr! Du förlorade!";

@@ -22,8 +22,8 @@ class DiceHand
     {
         $this->dice = [];
         $this->sum = 0;
-        
-        for($i = 0; $i < $nbrDice; $i++) {
+
+        for ($i = 0; $i < $nbrDice; $i++) {
             $this->dice[$i] = new GraphicalDice();
         }
     }
@@ -35,7 +35,8 @@ class DiceHand
     public function roll(): void
     {
         $this->sum = 0;
-        for ($i = 0; $i < count($this->dice); $i++) {
+        $length = count($this->dice);
+        for ($i = 0; $i < $length; $i++) {
             $this->dice[$i]->roll();
             $this->sum += $this->dice[$i]->getValue();
         }
@@ -49,7 +50,8 @@ class DiceHand
     public function getValues(): array
     {
         $values = array();
-        for ($i = 0; $i < count($this->dice); $i++) {
+        $length = count($this->dice);
+        for ($i = 0; $i < $length; $i++) {
             $values[$i] = $this->dice[$i]->getValue();
         }
         return $values;
@@ -73,11 +75,10 @@ class DiceHand
     public function getImages(): array
     {
         $images = array();
-        for ($i = 0; $i < count($this->dice); $i++) {
+        $length = count($this->dice);
+        for ($i = 0; $i < $length; $i++) {
             $images[$i] = $this->dice[$i]->getImage();
         }
         return $images;
     }
-
-
 }

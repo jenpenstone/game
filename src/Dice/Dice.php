@@ -18,7 +18,7 @@ class Dice
      *
      * @param int   $sides  The number of sides of the die.
      */
-    public function __construct(int $sides=6)
+    public function __construct(int $sides = 6)
     {
         $this->sides = $sides;
         $this->value = 0;
@@ -32,7 +32,7 @@ class Dice
     public function roll(): int
     {
         $this->value = rand(1, $this->sides);
-        return $this->value; 
+        return $this->value;
     }
 
     /**

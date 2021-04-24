@@ -1,1 +1,6 @@
-C:\Users\jenny\dbwebb-kurser\mvc\me\game\src\Router\Router.php:21	The method dispatch() has a Cyclomatic Complexity of 13. The configured cyclomatic complexity threshold is 10.
+C:\Users\jenny\dbwebb-kurser\mvc\me\game\src\Dice\Game21.php:176	The method checkWinner uses an else expression. Else clauses are basically not necessary and you can simplify the code by not using them.
+C:\Users\jenny\dbwebb-kurser\mvc\me\game\src\Dice\Game21.php:180	The method checkWinner uses an else expression. Else clauses are basically not necessary and you can simplify the code by not using them.
+C:\Users\jenny\dbwebb-kurser\mvc\me\game\src\Router\Router.php:21	The method dispatch() has a Cyclomatic Complexity of 25. The configured cyclomatic complexity threshold is 10.
+C:\Users\jenny\dbwebb-kurser\mvc\me\game\src\Router\Router.php:60	Missing class import via use statement (line '60', column '29').
+C:\Users\jenny\dbwebb-kurser\mvc\me\game\src\Router\Router.php:64	Missing class import via use statement (line '64', column '29').
+C:\Users\jenny\dbwebb-kurser\mvc\me\game\src\Router\Router.php:68	Missing class import via use statement (line '68', column '29').
