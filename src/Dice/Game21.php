@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Jess19\Dice;
 
 use function Mos\Functions\{
+    destroySession,
     redirectTo,
     renderView,
     sendResponse,
@@ -17,105 +18,185 @@ use function Mos\Functions\{
 
 class Game21
 {
-    /**
-     * Play a game.
-     */
-    public function playGame(): void
-    {
+    private $data;
 
-        $data = [
+
+    /**
+     * Constructor to create a Game21.
+     */
+    public function __construct()
+    {
+        $this->data = [
             "header" => "Game 21",
             "message" => "Spela 21!",
             "action" => url("/dicegame/process"),
             "endGame" => url("/dicegame/end"),
-            "nbrDice" => $_SESSION["nbrDice"] ?? null,
         ];
+    }
 
-        $doStartGame = $_SESSION["doStartGame"] ?? null;
-        $doContinue = $_SESSION["doContinue"] ?? null;
-        $doStopGame = $_SESSION["doStopGame"] ?? null;
+    /**
+     * Init a game.
+     */
+    public function initGame(): void
+    {
+        echo "Init game";
+        //Unset session
+        destroySession();
 
-        //If start button is pressed, start a new game.
-        if ($doStartGame) {
-            //Nbr of dice to use.
-            $nbrDice = intval($data["nbrDice"]);
+        //Render view
+        $this->showView();
+    }
 
-            // Unset of the session variables.
-            $_SESSION["playerSum"] = 0;
-            $_SESSION["computerSum"] = 0;
+    /**
+     * Start a game.
+     */
+    public function newGame($nbrDice): void
+    {
+        echo "New game";
+        //Nbr of dice to use.
+        $dice = intval($nbrDice);
 
-            if(!isset($_SESSION["scorePlayer"])){
-                $_SESSION["scorePlayer"] = 0;
-            }
-            if (!isset($_SESSION["scoreComputer"])) {
-                $_SESSION["scoreComputer"] = 0;
-            }
+        // init the score variables.
+        $_SESSION["scorePlayer"] = 0;
+        $_SESSION["scoreComputer"] = 0;
 
-            //Create new dice hand.
-            $_SESSION["hand"] = new DiceHand($nbrDice);
-            $_SESSION["compHand"] = new DiceHand($nbrDice);
+        //Create new dice hand.
+        $_SESSION["hand"] = new DiceHand($dice);
+        $_SESSION["compHand"] = new DiceHand($dice);
 
-            $_SESSION["hand"]->roll();
-            $data["lastHandRoll"] = $_SESSION["hand"]->getImages();
-            $_SESSION["playerSum"] += $_SESSION["hand"]->getSum();
-        }
-        
-        //If continue button is pressed, roll the dice.
-        if ($doContinue) {
-            $_SESSION["hand"]->roll();
-            $data["lastHandRoll"] = $_SESSION["hand"]->getImages();
-            $_SESSION["playerSum"] += $_SESSION["hand"]->getSum();
-        }
+        //Start new round
+        $this->startRound();
 
-        $playerSum = $_SESSION["playerSum"] ?? null;
+        //Player rolls the dice
+        $this->playerRolls();
 
-        //If player get more than 21 game is over.
-        if ($playerSum > 21) {
-            $data["result"] = "Spelet slut!";
+        //Render view
+        $this->showView();
+    }
+
+
+    /**
+     * Player continues to roll.
+     */
+    public function continueRoll(): void
+    {
+        //Roll
+        $this->playerRolls();
+
+        if ($_SESSION["playerSum"] > 21) {
+            $this->data["result"] = "Tyvärr! Du förlorade!";
             $_SESSION["scoreComputer"] += 1;
             //End round
-            redirectTo(url("/dicegame"));
-
-         //If player get 21
-        } else if ($playerSum == 21) {
-            $data["result"] = "Grattis, Du fick 21!";
+        } else if ($_SESSION["playerSum"] == 21) {
+            $this->data["result"] = "Grattis, Du fick 21!";
         }
 
-        //If stop button is pressed
-        if ($doStopGame || $playerSum >= 21) {
-            //Computer plays
-            $cHand = $_SESSION["compHand"];
-            while ($_SESSION["computerSum"] < 21) {
-                $cHand->roll();
-                $_SESSION["computerSum"] += $cHand->getSum();
-                echo $_SESSION["computerSum"] . ", ";
-            }
-            //Check who won the game
-            if ($_SESSION["computerSum"] == 21) {
-                $data["result"] = "Tyvärr! Du förlorade!";
-            } else if ($_SESSION["computerSum"] > 21) {
-                $data["result"] = "Grattis! Du vann!";
-            } else {
-                if ($_SESSION["computerSum"] < $_SESSION["playerSum"]) {
-                    $data["result"] = "Grattis! Du vann!";
-                } else {
-                    $data["result"] = "Tyvärr! Du förlorade!";
-                }
-            }
+        //Render view
+        $this->showView();
+    }
 
-            //End round  
-        }
+    /**
+     * Player has pressed button for stop rolling the dice.
+     */
+    public function playerStopped(): void
+    {
+        echo "Player stopped";
 
-        $body = renderView("layout/dicegame.php", $data);
-        sendResponse($body);
+        //Computer plays
+        $this->computerPlays();
+
+        //Check who won the round
+        $this->checkWinner();
+
+        //Render view
+        $this->showView();
+    }
+
+    /**
+     * Player has pressed button for new round.
+     */
+    public function newRound(): void
+    {
+        echo "New round";
+
+        // init the score variables.
+        $this->startRound();
+
+        //Player rolls the dice
+        $this->playerRolls();
+
+        //Render view
+        $this->showView();
+    }
+
+    /**
+     * Start round.
+     */
+    public function startRound(): void
+    {
+        echo "Start round";
+
+        // init the score variables.
+        $_SESSION["playerSum"] = 0;
+        $_SESSION["computerSum"] = 0;
     }
 
     /**
      * Roll the dice for player.
      */
-    public function showView($data): void
+    public function playerRolls(): void
     {
-        $body = renderView("layout/dicegame.php", $data);
+        echo "player rolls";
+
+        $_SESSION["hand"]->roll();
+        $this->data["lastHandRoll"] = $_SESSION["hand"]->getImages();
+        $_SESSION["playerSum"] += $_SESSION["hand"]->getSum();
+    }
+
+    /**
+     * Computer plays.
+     */
+    public function computerPlays(): void
+    {
+        echo "Computer plays";
+
+        $cHand = $_SESSION["compHand"];
+        while ($_SESSION["computerSum"] < 21) {
+            $cHand->roll();
+            $_SESSION["computerSum"] += $cHand->getSum();
+            echo $_SESSION["computerSum"] . ", ";
+        }
+    }
+
+    /**
+     * Check who won the round.
+     */
+    public function checkWinner(): void
+    {
+        echo "Check winner";
+
+        if ($_SESSION["computerSum"] == 21) {
+            $this->data["result"] = "Tyvärr! Du förlorade!";
+        } else if ($_SESSION["computerSum"] > 21) {
+            $this->data["result"] = "Grattis! Du vann!";
+        } else {
+            if ($_SESSION["computerSum"] < $_SESSION["playerSum"]) {
+                $this->data["result"] = "Grattis! Du vann!";
+            } else {
+                $this->data["result"] = "Tyvärr! Du förlorade!";
+            }
+        }
+    }
+
+
+    /**
+     * Render view.
+     */
+    public function showView(): void
+    {
+        echo "Render view";
+
+        $body = renderView("layout/dicegame.php", $this->data);
         sendResponse($body);
     }
 }

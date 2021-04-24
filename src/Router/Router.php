@@ -58,13 +58,21 @@ class Router
             return;
         } else if ($method === "GET" && $path === "/dicegame") {
             $callable = new \Jess19\Dice\Game21();
-            $callable->playGame();
+            var_dump($callable);
+            $callable->initGame();
             return;
         } else if ($method === "POST" && $path === "/dicegame/process") {
-            $_SESSION["nbrDice"] = $_POST["nbrDice"] ?? null;
-            $_SESSION["doStartGame"] = $_POST["doStartGame"] ?? null;
-            $_SESSION["doContinue"] = $_POST["doContinue"] ?? null;
-            $_SESSION["doStopGame"] = $_POST["doStopGame"] ?? null;
+            echo "Testing";
+            $callable = new \Jess19\Dice\Game21();
+            if (isset($_POST["doStartGame"])) {
+                $callable->newGame($_POST["nbrDice"]);
+            } else if (isset($_POST["doContinue"])) {
+                $callable->continueRoll();
+            } else if (isset($_POST["doStop"])) {
+                $callable->playerStopped();
+            } else if (isset($_POST["doNewRound"])) {
+                $callable->newRound();
+            }
 
             redirectTo(url("/dicegame"));
             return;
