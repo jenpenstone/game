@@ -67,19 +67,22 @@ class Game21
             $_SESSION["playerSum"] += $_SESSION["hand"]->getSum();
         }
 
+        $playerSum = $_SESSION["playerSum"] ?? null;
+
         //If player get more than 21 game is over.
-        if ($_SESSION["playerSum"] > 21) {
+        if ($playerSum > 21) {
             $data["result"] = "Spelet slut!";
             $_SESSION["scoreComputer"] += 1;
             //End round
+            redirectTo(url("/dicegame"));
 
          //If player get 21
-        } else if ($_SESSION["playerSum"] == 21) {
+        } else if ($playerSum == 21) {
             $data["result"] = "Grattis, Du fick 21!";
         }
 
         //If stop button is pressed
-        if ($doStopGame || $_SESSION["playerSum"] >= 21) {
+        if ($doStopGame || $playerSum >= 21) {
             //Computer plays
             $cHand = $_SESSION["compHand"];
             while ($_SESSION["computerSum"] < 21) {
@@ -87,34 +90,32 @@ class Game21
                 $_SESSION["computerSum"] += $cHand->getSum();
                 echo $_SESSION["computerSum"] . ", ";
             }
+            //Check who won the game
+            if ($_SESSION["computerSum"] == 21) {
+                $data["result"] = "Tyvärr! Du förlorade!";
+            } else if ($_SESSION["computerSum"] > 21) {
+                $data["result"] = "Grattis! Du vann!";
+            } else {
+                if ($_SESSION["computerSum"] < $_SESSION["playerSum"]) {
+                    $data["result"] = "Grattis! Du vann!";
+                } else {
+                    $data["result"] = "Tyvärr! Du förlorade!";
+                }
+            }
 
-            
+            //End round  
         }
-
-        //$nbrDice = intval($data["nbrDice"]);
-        //$_SESSION["hand"] = new DiceHand($nbrDice);
-        //$_SESSION["hand"]->roll();
-        //$data["lastHandRoll"] = $_SESSION["hand"]->getImages();
-        //$_SESSION["playerSum"] += $_SESSION["hand"]->getSum();
 
         $body = renderView("layout/dicegame.php", $data);
         sendResponse($body);
     }
 
     /**
-     * Roll the dice for the player.
+     * Roll the dice for player.
      */
-    private function playerRolls(): void {
-        $_SESSION["hand"]->roll();
-        $data["lastHandRoll"] = $_SESSION["hand"]->getImages();
-        $_SESSION["playerSum"] += $_SESSION["hand"]->getSum();
-    }
-
-    /**
-     * Roll the dice for the player.
-     */
-    private function endRound(): void
+    public function showView($data): void
     {
-
+        $body = renderView("layout/dicegame.php", $data);
+        sendResponse($body);
     }
 }

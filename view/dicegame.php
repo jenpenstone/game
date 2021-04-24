@@ -42,10 +42,12 @@ var_dump($_SESSION);
 <form method="post" action="<?= $action ?>">
     <label for="nbrDice">Antal tärningar:</label>
     <input type="number" name="nbrDice" value="<?= $nbrDice ?>" min="1" max="2">
-    <input type=submit name="doStartGame" value="Starta ny omgång" id="btnStart">
+    <input type=submit name="doStartGame" value="Starta spelet" id="btnStart">
     <br>
     <input type=submit name="doContinue" value="Fortsätt" id="btnContinue">
-    <input type=submit name="doStopGame" value="Stanna" id="btnStop">
+    <input type=submit name="doStop" value="Stanna" id="btnStop">
+    <br>
+    <input type=submit name="doNewRound" value="Starta ny omgång" id="btnNewRound">
 </form>
 
 <div>
