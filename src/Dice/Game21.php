@@ -98,8 +98,6 @@ class Game21
             $_SESSION["state"] = 3;
         } else if ($_SESSION["playerSum"] == 21) {
             $_SESSION["result"] = "Grattis, Du fick 21!";
-
-            $_SESSION["state"] = 3;
         }
     }
 
