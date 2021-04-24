@@ -40,6 +40,17 @@ class Game21
      */
     public function initGame(): void
     {
+        $_SESSION["state"] = 1;
+
+        //Render view
+        $this->showView();
+    }
+
+    /**
+     * Init a game.
+     */
+    public function playGame(): void
+    {
         //Render view
         $this->showView();
     }
@@ -82,9 +93,13 @@ class Game21
         if ($_SESSION["playerSum"] > 21) {
             $_SESSION["result"] = "Tyvärr! Du förlorade!";
             $_SESSION["scoreComputer"] += 1;
-            //End round
+
+            $_SESSION["state"] = 3;
+
         } else if ($_SESSION["playerSum"] == 21) {
             $_SESSION["result"] = "Grattis, Du fick 21!";
+
+            $_SESSION["state"] = 3;
         }
     }
 
@@ -93,6 +108,8 @@ class Game21
      */
     public function playerStopped(): void
     {
+        $_SESSION["state"] = 3;
+
         //Computer plays
         $this->computerPlays();
 
@@ -121,6 +138,7 @@ class Game21
         $_SESSION["playerSum"] = 0;
         $_SESSION["computerSum"] = 0;
         $_SESSION["result"] = "";
+        $_SESSION["state"] = 2;
     }
 
     /**

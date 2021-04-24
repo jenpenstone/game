@@ -25,6 +25,9 @@ $scorePlayer = $_SESSION["scorePlayer"] ?? null;
 $scoreComputer = $_SESSION["scoreComputer"] ?? null;
 
 $result = $_SESSION["result"] ?? null;
+
+var_dump($_SESSION["state"]);
+
 ?>
 
 <h1><?= $header ?></h1>
@@ -43,12 +46,18 @@ $result = $_SESSION["result"] ?? null;
 <form method="post" action="<?= $action ?>">
     <label for="nbrDice">Antal tärningar:</label>
     <input type="number" name="nbrDice" value="<?= $nbrDice ?>" min="1" max="2">
-    <input type=submit name="doStartGame" value="Starta spelet" id="btnStart">
+    <?php if ($_SESSION["state"] == 1) : ?>
+        <input type=submit name="doStartGame" value="Starta spelet" id="btnStart">
+    <?php endif; ?>
     <br>
-    <input type=submit name="doContinue" value="Fortsätt" id="btnContinue">
-    <input type=submit name="doStop" value="Stanna" id="btnStop">
+    <?php if ($_SESSION["state"] == 2) : ?>
+        <input type=submit name="doContinue" value="Fortsätt" id="btnContinue">
+        <input type=submit name="doStop" value="Stanna" id="btnStop">
+    <?php endif; ?>
     <br>
-    <input type=submit name="doNewRound" value="Starta ny omgång" id="btnNewRound">
+    <?php if ($_SESSION["state"] == 3) : ?>
+        <input type=submit name="doNewRound" value="Starta ny omgång" id="btnNewRound">
+    <?php endif; ?>
 </form>
 
 <div>

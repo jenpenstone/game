@@ -60,6 +60,10 @@ class Router
             $callable = new \Jess19\Dice\Game21();
             $callable->initGame();
             return;
+        } else if ($method === "GET" && $path === "/dicegame/play") {
+            $callable = new \Jess19\Dice\Game21();
+            $callable->playGame();
+            return;
         } else if ($method === "POST" && $path === "/dicegame/process") {
             $callable = new \Jess19\Dice\Game21();
             if (isset($_POST["doStartGame"])) {
@@ -72,7 +76,7 @@ class Router
                 $callable->newRound();
             }
 
-            redirectTo(url("/dicegame"));
+            redirectTo(url("/dicegame/play"));
             return;
         } else if ($method === "POST" && $path === "/dicegame/end") {
             destroySession();
