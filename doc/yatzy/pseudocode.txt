@@ -1,0 +1,135 @@
+src/Dice/Yatzy.php
+---------
+
+include: 
+--------
+DiceHand
+Dice
+GraphicalDice
+
+variables:
+----------
+a dicehand
+array with the sum from every round
+int to keep track of number of rolls for the current round
+array with saved dice for the current round
+
+methods:
+--------
+constructor(set up start view)
+start game(when button is pressed)
+new round
+roll DiceHand
+save dice
+sum round
+sum game
+end game
+
+------------------------------------------------
+
+/**
+ * Class for playing Yatzy.
+ */
+
+class Game21Yatzy
+{
+    private $data;
+    private DiceHand $hand;
+    private array $rounds;
+    private array $savedDice;
+    private int $nbrRolls;
+    private int $currentRound;
+
+    /**
+     * Constructor to create a Yatzy game.
+     */
+    public function __construct()
+    {
+        $this->data = [
+            "header" => "Yatzy",
+            "start" => url("/yatzygame/play"),
+            "endGame" => url("/yatzygame/end"),
+            "result" => "",
+        ];
+
+        //Create parts needed for showing view
+
+    }
+
+    /**
+     * Start a game.
+     */
+    public function startGame(): void
+    {
+        //Create a dicehand
+
+        //Store hand in session variable to be accessed at all times
+
+        //create an empty rounds array
+
+        //create empty savedDice array
+
+
+
+        return $this->data;
+    }
+
+    /**
+     * Start a new round.
+     */
+    public function newRound(): void
+    {
+        //set/reset $nbrRolls to 0
+
+        return $this->data;
+    }
+
+    /**
+     * roll the Dice in the hand.
+     */
+    public function rollHand(): void
+    {
+        //Roll all dices in dicehand except for the ones that are saved
+
+        //increase $nbrRolls by 1
+        return $this->data;
+    }
+
+    /**
+     * Save a dice from being rolled again.
+     */
+    private function saveDice(array $dice): void
+    {
+        //Save the nbr of the position of the dice that should not be rolled again.
+
+    }    
+
+
+    /**
+     * Get sum of the diceHand and store in $rounds.
+     */
+    public function sumHand(): void
+    {
+        //loop through diceHand array with dice
+        //if value of dice is same as $currentround the value will be added to the sum
+        //the sum for the round is stored in the $rounds array
+    }
+
+    /**
+     * Get the total sum for the game.
+     */
+    public function sumGame(): int
+    {
+        // loop through array $rounds and summarize all values
+
+        //return sum
+    }
+
+    /**
+     * Player has pressed button for new round.
+     */
+    public function endGame(): void
+    {
+       
+    }
+}

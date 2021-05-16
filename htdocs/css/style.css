@@ -10,6 +10,10 @@ main {
     min-height: 20em;
 }
 
+form {
+    margin: 2em;
+}
+
 footer {
     border-top: 1px solid #ccc;
     min-height: 4em;

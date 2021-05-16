@@ -5,10 +5,6 @@ declare(strict_types=1);
 namespace Jess19\Dice;
 
 use function Mos\Functions\{
-    destroySession,
-    redirectTo,
-    renderView,
-    sendResponse,
     url
 };
 
@@ -29,7 +25,7 @@ class Game21
         $this->data = [
             "header" => "Game 21",
             "message" => "Spela 21!",
-            "action" => url("/dicegame/process"),
+            "action" => url("/dicegame/play"),
             "endGame" => url("/dicegame/end"),
             "result" => "",
         ];
@@ -38,27 +34,24 @@ class Game21
     /**
      * Init a game.
      */
-    public function initGame(): void
+    public function initGame(): array
     {
         $_SESSION["state"] = 1;
-
-        //Render view
-        $this->showView();
+        return $this->data;
     }
 
     /**
      * Init a game.
      */
-    public function playGame(): void
+    public function playGame(): array
     {
-        //Render view
-        $this->showView();
+        return $this->data;
     }
 
     /**
      * Start a game.
      */
-    public function newGame($nbrDice): void
+    public function newGame($nbrDice): array
     {
         //Nbr of dice to use.
         $dice = intval($nbrDice);
@@ -77,8 +70,7 @@ class Game21
         //Player rolls the dice
         $this->playerRolls();
 
-        //Render view
-        $this->showView();
+        return $this->data;
     }
 
 
@@ -180,15 +172,5 @@ class Game21
                 $_SESSION["scoreComputer"] += 1;
             }
         }
-    }
-
-
-    /**
-     * Render view.
-     */
-    public function showView(): void
-    {
-        $body = renderView("layout/dicegame.php", $this->data);
-        sendResponse($body);
     }
 }
