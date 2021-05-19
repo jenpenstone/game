@@ -51,3 +51,26 @@ footer {
 .dice-6 {
     background-image: url("../../src/Dice/img/6.png");
 }
+
+.yatzyblock {
+    display: block;
+    padding: 1em;
+    width: 60%;
+}
+
+.yatzyblock input {
+    height: 1.2em;
+    float: right;
+    width: 30%;
+}
+
+.dicefield {
+    background-color: grey;
+    width: 40%;
+    min-height: 20em;
+}
+
+.halfpage {
+    width: 40%;
+    display: inline-block;
+}

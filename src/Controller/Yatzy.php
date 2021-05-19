@@ -20,11 +20,11 @@ use function Mos\Functions\{
 class Yatzy
 {
     public function init(): ResponseInterface
-    {
+    {   
         $psr17Factory = new Psr17Factory();
 
         $callable = new \Jess19\Dice\Yatzy();
-        $data = $callable->initGame();
+        $data = $callable->startGame();
 
         $body = renderView("layout/yatzygame.php", $data);
 

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Standard view template to generate a simple web page, or part of a web page.
+ * Game 21 view template to generate web page, or part of a web page.
  */
 
 declare(strict_types=1);
@@ -25,9 +25,6 @@ $scorePlayer = $_SESSION["scorePlayer"] ?? null;
 $scoreComputer = $_SESSION["scoreComputer"] ?? null;
 
 $result = $_SESSION["result"] ?? null;
-
-var_dump($_SESSION["state"]);
-
 ?>
 
 <h1><?= $header ?></h1>

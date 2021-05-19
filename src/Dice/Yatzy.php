@@ -12,7 +12,7 @@ use function Mos\Functions\{
  * Class for playing Yatzy.
  */
 
-class Game21Yatzy
+class Yatzy
 {
     private $data;
     private DiceHand $hand;
