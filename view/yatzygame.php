@@ -18,6 +18,9 @@ $diceHand = $_SESSION["diceHand"] ?? null;
 
 $result = $_SESSION["result"] ?? null;
 
+$startGame = $startGame ?? null;
+$rollDice = $rollDice ?? null;
+
 ?>
 
 <h1><?= $header ?></h1>
@@ -28,7 +31,7 @@ $result = $_SESSION["result"] ?? null;
     <input type=submit name="startGame" value="Starta spelet" id="btnStartGame">
 </form>
 
-<form class=halfpage method="post" action="<?= $roll ?>">
+<form class=halfpage method="post" action="<?= $rollDice ?>">
     <div class="yatzyblock">
         <label for="scorePlayer">Ettor:</label>
         <input type="number" name="one" value="<?= $sumOne ?>" readonly>

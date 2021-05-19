@@ -20,11 +20,27 @@ use function Mos\Functions\{
 class Yatzy
 {
     public function init(): ResponseInterface
-    {   
+    {
+        destroySession();
+
         $psr17Factory = new Psr17Factory();
 
-        $callable = new \Jess19\Dice\Yatzy();
-        $data = $callable->startGame();
+        $_SESSION["yatzygame"] = new \Jess19\Dice\Yatzy();
+        $data = $_SESSION["yatzygame"]->initGame();
+
+        $body = renderView("layout/yatzygame.php", $data);
+
+        return $psr17Factory
+            ->createResponse(200)
+            ->withBody($psr17Factory->createStream($body));
+    }
+
+    public function start(): ResponseInterface
+    {
+        $psr17Factory = new Psr17Factory();
+
+        $_SESSION["yatzygame"] = new \Jess19\Dice\Yatzy();
+        $data = $_SESSION["yatzygame"]->startGame();
 
         $body = renderView("layout/yatzygame.php", $data);
 
@@ -37,16 +53,7 @@ class Yatzy
     {
         $psr17Factory = new Psr17Factory();
 
-        $callable = new \Jess19\Dice\Yatzy();
-        if (isset($_POST["doStartGame"])) {
-            $callable->newGame($_POST["nbrDice"]);
-        } else if (isset($_POST["doContinue"])) {
-            $callable->continueRoll();
-        } else if (isset($_POST["doStop"])) {
-            $callable->playerStopped();
-        } else if (isset($_POST["doNewRound"])) {
-            $callable->newRound();
-        }
+        $callable = $_SESSION["yatzygame"] ?? null;
 
         $data = $callable->playGame();
 
@@ -55,14 +62,5 @@ class Yatzy
         return $psr17Factory
             ->createResponse(200)
             ->withBody($psr17Factory->createStream($body));
-    }
-
-    public function end(): ResponseInterface
-    {
-        destroySession();
-
-        return (new Response())
-            ->withStatus(301)
-            ->withHeader("Location", url("/yatzygame"));
     }
 }

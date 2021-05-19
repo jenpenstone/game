@@ -28,8 +28,8 @@ class Yatzy
     {
         $this->data = [
             "header" => "Yatzy",
-            "start" => url("/yatzygame/play"),
-            "endGame" => url("/yatzygame/end"),
+            "startGame" => url("/yatzygame/start"),
+            "rollDice" => url("/yatzygame/play"),
             "result" => "",
         ];
 
@@ -40,7 +40,7 @@ class Yatzy
     /**
      * Start a game.
      */
-    public function startGame(): array
+    public function initGame(): array
     {
         //Create a dicehand
 
@@ -50,6 +50,15 @@ class Yatzy
 
         //create empty savedDice array
 
+        return $this->data;
+    }
+
+    /**
+     * Start a game.
+     */
+    public function startGame(): array
+    {
+        //Make the fist roll
 
 
         return $this->data;

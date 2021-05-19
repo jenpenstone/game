@@ -43,6 +43,6 @@ $router->addGroup("/dicegame", function (RouteCollector $router) {
 
 $router->addGroup("/yatzygame", function (RouteCollector $router) {
     $router->addRoute("GET", "", ["\Jess19\Controller\Yatzy", "init"]);
+    $router->addRoute("POST", "/start", ["\Jess19\Controller\Yatzy", "start"]);
     $router->addRoute("POST", "/play", ["\Jess19\Controller\Yatzy", "play"]);
-    $router->addRoute("POST", "/end", ["\Jess19\Controller\Yatzy", "end"]);
 });
