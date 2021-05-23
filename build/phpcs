@@ -1,0 +1,12 @@
+
+FILE: C:\Users\jenny\dbwebb-kurser\mvc\me\game\src\Dice\Yatzy.php
+----------------------------------------------------------------------
+FOUND 1 ERROR AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 160 | ERROR | [x] Whitespace found at end of line
+----------------------------------------------------------------------
+PHPCBF CAN FIX THE 1 MARKED SNIFF VIOLATIONS AUTOMATICALLY
+----------------------------------------------------------------------
+
+Time: 492ms; Memory: 6MB
+

@@ -20,7 +20,6 @@ class Yatzy
     private $data;
     private array $hand;
     private $totalSum;
-    //private array $savedDice;
     private int $nbrRolls;
     private int $currentRound;
 
@@ -40,8 +39,6 @@ class Yatzy
         $this->hand = [new GraphicalDice(), new GraphicalDice(), new GraphicalDice(), new GraphicalDice(), new GraphicalDice()];
 
         //init variables
-        $this->rounds = [];
-        //$this->savedDice = [];
         $this->currentRound = 0;
         $this->nbrRolls = 0;
     }
@@ -127,7 +124,7 @@ class Yatzy
                 $i++;
             }
         }
-        
+
         $_SESSION["dice"] = $dice;
 
         return $this->data;
@@ -160,7 +157,6 @@ class Yatzy
     private function saveDice(array $dice): void
     {
         //Save the nbr of the position of the dice that should not be rolled again.
-
     }    
 
 
@@ -183,13 +179,5 @@ class Yatzy
 
         //return sum
         return 0;
-    }
-
-    /**
-     * Player has pressed button for new round.
-     */
-    public function endGame(): void
-    {
-       
     }
 }

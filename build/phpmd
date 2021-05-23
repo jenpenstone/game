@@ -1,5 +1,17 @@
-C:\Users\jenny\dbwebb-kurser\mvc\me\game\src\Dice\Game21.php:176	The method checkWinner uses an else expression. Else clauses are basically not necessary and you can simplify the code by not using them.
-C:\Users\jenny\dbwebb-kurser\mvc\me\game\src\Dice\Game21.php:180	The method checkWinner uses an else expression. Else clauses are basically not necessary and you can simplify the code by not using them.
+C:\Users\jenny\dbwebb-kurser\mvc\me\game\src\Controller\Game21.php:26	Missing class import via use statement (line '26', column '25').
+C:\Users\jenny\dbwebb-kurser\mvc\me\game\src\Controller\Game21.php:40	Missing class import via use statement (line '40', column '25').
+C:\Users\jenny\dbwebb-kurser\mvc\me\game\src\Controller\Yatzy.php:28	Missing class import via use statement (line '28', column '38').
+C:\Users\jenny\dbwebb-kurser\mvc\me\game\src\Controller\Yatzy.php:42	Missing class import via use statement (line '42', column '38').
+C:\Users\jenny\dbwebb-kurser\mvc\me\game\src\Dice\Game21.php:166	The method checkWinner uses an else expression. Else clauses are basically not necessary and you can simplify the code by not using them.
+C:\Users\jenny\dbwebb-kurser\mvc\me\game\src\Dice\Game21.php:170	The method checkWinner uses an else expression. Else clauses are basically not necessary and you can simplify the code by not using them.
+C:\Users\jenny\dbwebb-kurser\mvc\me\game\src\Dice\Yatzy.php:17	Avoid unused private fields such as '$nbrDice'.
+C:\Users\jenny\dbwebb-kurser\mvc\me\game\src\Dice\Yatzy.php:18	Avoid unused private fields such as '$nbrRounds'.
+C:\Users\jenny\dbwebb-kurser\mvc\me\game\src\Dice\Yatzy.php:63	Avoid variables with short names like $i. Configured minimum length is 3.
+C:\Users\jenny\dbwebb-kurser\mvc\me\game\src\Dice\Yatzy.php:85	Avoid variables with short names like $i. Configured minimum length is 3.
+C:\Users\jenny\dbwebb-kurser\mvc\me\game\src\Dice\Yatzy.php:110	The method playGame uses an else expression. Else clauses are basically not necessary and you can simplify the code by not using them.
+C:\Users\jenny\dbwebb-kurser\mvc\me\game\src\Dice\Yatzy.php:114	The method playGame uses an else expression. Else clauses are basically not necessary and you can simplify the code by not using them.
+C:\Users\jenny\dbwebb-kurser\mvc\me\game\src\Dice\Yatzy.php:157	Avoid unused private methods such as 'saveDice'.
+C:\Users\jenny\dbwebb-kurser\mvc\me\game\src\Dice\Yatzy.php:157	Avoid unused parameters such as '$dice'.
 C:\Users\jenny\dbwebb-kurser\mvc\me\game\src\Router\Router.php:21	The method dispatch() has a Cyclomatic Complexity of 25. The configured cyclomatic complexity threshold is 10.
 C:\Users\jenny\dbwebb-kurser\mvc\me\game\src\Router\Router.php:60	Missing class import via use statement (line '60', column '29').
 C:\Users\jenny\dbwebb-kurser\mvc\me\game\src\Router\Router.php:64	Missing class import via use statement (line '64', column '29').
