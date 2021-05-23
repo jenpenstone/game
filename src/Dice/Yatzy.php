@@ -14,10 +14,13 @@ use function Mos\Functions\{
 
 class Yatzy
 {
+    private int $nbrDice = 5;
+    private int $nbrRounds = 6;
+
     private $data;
-    private DiceHand $hand;
-    private array $rounds;
-    private array $savedDice;
+    private array $hand;
+    private $totalSum;
+    //private array $savedDice;
     private int $nbrRolls;
     private int $currentRound;
 
@@ -28,13 +31,19 @@ class Yatzy
     {
         $this->data = [
             "header" => "Yatzy",
+            "message" => "Markera de tärningar du vill slå igen.",
             "startGame" => url("/yatzygame/start"),
             "rollDice" => url("/yatzygame/play"),
-            "result" => "",
         ];
 
-        //Create parts needed for showing view
+        //Create a dicehand
+        $this->hand = [new GraphicalDice(), new GraphicalDice(), new GraphicalDice(), new GraphicalDice(), new GraphicalDice()];
 
+        //init variables
+        $this->rounds = [];
+        //$this->savedDice = [];
+        $this->currentRound = 0;
+        $this->nbrRolls = 0;
     }
 
     /**
@@ -42,14 +51,8 @@ class Yatzy
      */
     public function initGame(): array
     {
-        //Create a dicehand
-
-        //Store hand in session variable to be accessed at all times
-
-        //create an empty rounds array
-
-        //create empty savedDice array
-
+        $this->data["dice"] = "";
+        $this->data["hideBtn"] = true;
         return $this->data;
     }
 
@@ -59,8 +62,20 @@ class Yatzy
     public function startGame(): array
     {
         //Make the fist roll
+        $dice = "";
+        $i = 0;
+        foreach ($this->hand as $die) {
+            $die->roll();
+            $value = $die->getValue();
+            $dice .= "<input type='checkbox' id='die$i' name='die$i' value='true'>";
+            $dice .= "<label for='die$i'> <div class='dice dice-$value'></div> </label><br>";
+            $i++;
+        }
+        $_SESSION["dice"] = $dice;
 
-
+        $this->totalSum = 0;
+        $this->currentRound += 1;
+        $this->nbrRolls += 1;
         return $this->data;
     }
 
@@ -69,7 +84,52 @@ class Yatzy
      */
     public function playGame(): array
     {
-        //
+        $dice = "";
+        $i = 0;
+        $this->nbrRolls += 1;
+
+        if ($this->nbrRolls == 3) {
+            //calculate sum and add to sum array
+            $sum = 0;
+            foreach ($this->hand as $die) {
+                $value = $die->getValue();
+                if ($value == $this->currentRound) {
+                    $sum += $value;
+                }
+
+                $dice .= "<div class='dice dice-$value'></div>";
+                $i++;
+            }
+            $this->totalSum += $sum;
+            $this->data["sum$this->currentRound"] = $sum;
+
+            if ($this->currentRound == 6) {
+                if ($this->totalSum > 62) {
+                    $this->totalSum += 50;
+                    $this->data["bonus"] = 50;
+                }
+                $this->data["sumTotal"] = $this->totalSum;
+                $this->data["hideBtn"] = true;
+            } else {
+                $this->nbrRolls = 0;
+                $this->currentRound += 1;
+            }
+        } else {
+            //roll dice that are marked
+            foreach ($this->hand as $die) {
+                $roll = $_POST["die$i"] ?? false;
+                if ($roll) {
+                    $die->roll();
+                }
+                $value = $die->getValue();
+                $dice .= "<input type='checkbox' id='die$i' name='die$i' value='true'>";
+                $dice .= "<label for='die$i'> <div class='dice dice-$value'></div> </label><br>";
+                $i++;
+            }
+        }
+        
+        $_SESSION["dice"] = $dice;
+
         return $this->data;
     }
 
